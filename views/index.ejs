@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carbon Emissions Tracker</title>
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+
+    header {
+      background-color: #23b9c4;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    select, button, input[type="text"] {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: 2px solid #333;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #444;
+    }
+
+    #estimateResult {
+      font-size: 1.2rem;
+      text-align: left;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .ai {
+      text-align: center;
+      padding: 2rem;
+      background-color: #f4f4f4;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: 2rem auto;
+      border-radius: 10px;
+    }
+
+    .ai h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .ai h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .ai button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .ai button:hover {
+      background-color: #0056b3;
+    }
+
+    .logoutbutton {
+      background-color: #2493be;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      position: relative;
+      right: 1rem;
+      top: 1rem;
+      font-size: 1rem;
+    }
+
+    /* Media queries for responsive design */
+    @media screen and (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      .ai {
+        padding: 1rem;
+      }
+    }
+
+  
+</style>
+  
+</head>
+<body>
+  <header>
+    <h1>Carbon Emissions Tracker</h1>
+  </header>
+  <div class="container">
+    <label for="activityIdSelect">Select Activity ID:</label>
+    <select id="activityIdSelect">
+      <option value="electricity-supply_grid-source_total_supplier_mix">Total Supplier Mix</option>
+      <option value="electricity-supply_grid-source_residual_mix">Residual Mix</option>
+      <option value="electricity-supply_grid-source_production_mix">Production Mix</option>
+    </select>
+    <button id="getEstimateButton">Get Estimate</button>
+
+    <div id="estimateResult" class="hidden"></div>
+    
+    <div>
+      <h1>CARBON FOOTPRINT EXTIMATION MANUALLY</h1>
+      <h2>AIR QUALITY HEALTH INDEX</h2>
+      <button onClick="redirectToCalculateAQHI()"> Get Estimate</button>
+      <h2>CARBON FOOTPRINT FROM CAR TRAVEL</h2>
+      <button onClick="redirectToCalculatecar()"> Get Estimate</button>
+      <h2>CARBON FOOTPRINT FROM FLIGHT</h2>
+      <button onClick="redirectToCalculateflight()"> Get Estimate</button>
+      <h2>CARBON FOOTPRINT FROM FUEL</h2>
+      <button onClick="redirectToCalculatepetrol()"> Get Estimate</button>
+    </div>
+    <h1>Select a Domain:</h1>
+    <select id="domainSelect">
+      <option value="house">House</option>
+      <option value="flights">Flights</option>
+      <option value="car">Car</option>
+      <option value="motorbike">Motorbike</option>
+      <option value="busandrail">Bus and Rail</option>
+    </select>
+  
+    <div id="results">
+      <h2>Carbon Emission Control Measures:</h2>
+      <ul id="pointsList">
+      </ul>
+    </div>
+    <!-- HTML form to input user question -->
+
+    <div class="container-1">
+      <h2>Get Your Weather </h2>
+      <form class="city-form" action="/" method="post">
+        <label for="cityinput">City Name:</label>
+        <input id="cityinput" type="text" name="cityname">
+        <button type="submit">Go</button>
+      </form>
+    </div>
+<div class="ai">
+  <h1>Our AI Services</h1>
+  <h2>AI Search engine</h2>
+  <button onClick="redirectToopenai()">Go</button>
+</div>
+    <a class="logoutbutton" href="/logout" role="button">Log Out</a>
+   
+  </div>
+
+  <script>
+    // JavaScript code remains unchanged
+    const getEstimateButton = document.getElementById('getEstimateButton');
+    const estimateResult = document.getElementById('estimateResult');
+    const activityIdSelect = document.getElementById('activityIdSelect');
+  
+  
+  
+    getEstimateButton.addEventListener('click', async () => {
+      try {
+        const selectedActivityId = activityIdSelect.value;
+    
+  
+        const response = await fetch(`/estimate?activityId=${selectedActivityId}`);
+        const data = await response.json();
+  
+        console.log(data); 
+        // Log the response data to the console
+  
+        if (data && data.constituent_gases && data.constituent_gases.co2e_total !== null) {
+          estimateResult.innerHTML = `
+            <p><strong>Estimated Emissions:</strong> ${data.constituent_gases.co2e_total} kgCO2e</p>
+            <p><strong>Calculation Method:</strong> ${data.co2e_calculation_method}</p>
+            <p><strong>Calculation Origin:</strong> ${data.co2e_calculation_origin}</p>
+            <p><strong>Source:</strong> ${data.emission_factor.source}</p>
+            <p><strong>Source Dataset:</strong> ${data.emission_factor.source_dataset}</p>
+            <p><strong>Year:</strong> ${data.emission_factor.year}</p>
+            <p><strong>Region:</strong> ${data.emission_factor.region}</p>
+            <p><strong>Category:</strong> ${data.emission_factor.category}</p>
+            <!-- Add more properties as needed -->
+          `;
+        } else {
+          estimateResult.textContent = 'Data not available.';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      
+        estimateResult.textContent = 'An error occurred.';
+        
+   
+      }
+    });
+    const domainSelect = document.getElementById('domainSelect');
+    const pointsList = document.getElementById('pointsList');
+
+    const measures = {
+      house: [
+        "Energy-efficient appliances",
+        "Insulation improvement",
+        "Renewable energy sources",
+        "Smart thermostats",
+        "LED lighting",
+        "Energy audits"
+      ],
+      flights: [
+        "Fuel-efficient aircraft",
+        "Choose direct flights",
+        "Carbon offset programs",
+        "Reduce air travel",
+        "Support eco-initiative airlines"
+      ],
+      car: [
+        "Electric or hybrid vehicles",
+        "Use public transportation",
+        "Carpooling",
+        "Fuel efficiency",
+        "Proper maintenance"
+      ],
+      motorbike: [
+        "Electric motorcycles",
+        "Fuel efficiency",
+        "Regular maintenance"
+      ],
+      busandrail: [
+        "Use public transportation",
+        "Invest in rail infrastructure",
+        "Hybrid and electric buses",
+        "Efficient scheduling",
+        "Multi-modal integration"
+      ]
+    };
+
+    function updateMeasures(domain) {
+      const selectedMeasures = measures[domain];
+      pointsList.innerHTML = '';
+
+      selectedMeasures.forEach(measure => {
+        const listItem = document.createElement('li');
+        listItem.textContent = measure;
+        pointsList.appendChild(listItem);
+      });
+    }
+
+    // Initialize with default domain
+    updateMeasures(domainSelect.value);
+
+    domainSelect.addEventListener('change', function () {
+      updateMeasures(domainSelect.value);
+    });
+    function redirectToCalculateAQHI() {
+      window.location.href = '/calculate-aqhi';
+    }
+    function redirectToCalculatecar() {
+      window.location.href = '/calculate-carbon-footprint';
+    }
+    function redirectToCalculateflight() {
+      window.location.href = '/calculate-flight-carbon';
+    }
+    function redirectToCalculatepetrol() {
+      window.location.href = '/calculate-fuel-co2e';
+    }
+    function redirectToopenai() {
+      window.location.href = '/openai-form';
+    }
+
+   
+  </script>
+</body>
+</html>
+
+
+
+
+
+

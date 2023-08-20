@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculate Carbon Footprint</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    h1 {
+      background-color: #23b9c4;
+      color: white;
+      padding: 1rem;
+    }
+    form {
+      padding: 2rem;
+    }
+    label {
+      font-size: 1.2rem;
+    }
+    input, select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 2px solid #333;
+      border-radius: 8px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 1rem;
+    }
+    button {
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    p {
+      font-size: 1.2rem;
+    }
+    
+    /* Media queries for responsive design */
+    @media screen and (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      form {
+        padding: 1rem;
+      }
+      label {
+        font-size: 1rem;
+      }
+      input, select {
+        padding: 0.3rem;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+      button {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.9rem;
+      }
+      h2 {
+        font-size: 1.2rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Calculate Carbon Footprint From Car Travel</h1>
+  
+  <form action="/calculate-carbon-footprint" method="POST">
+    <label for="distance">Distance (km): </label>
+    <input type="text" name="distance" required><br>
+    
+    <label for="vehicle">Vehicle: </label>
+    <select name="vehicle" required>
+      <option value="SmallDieselCar">Small Diesel Car</option>
+      <option value="MediumDieselCar">Medium Diesel Car</option>
+      <!-- Add other options here -->
+      <option value="LargeDieselCar">Large Diesel Car</option>
+      <option value="MediumHybridCar">Medium Hybrid Car</option>
+      <option value="LargeHybridCar">Large Hybrid Car</option>
+      <option value="MediumLPGCar">Medium LPG Car</option>
+      <option value="LargeLPGCar">Large LPG Car</option>
+      <option value="MediumCNGCar">Medium CNG Car</option>
+      <option value="LargeCNGCar">Large CNG Car</option>
+      <option value="SmallPetrolVan">Small Petrol Van</option>
+      <option value="LargePetrolVan">Large Petrol Van</option>
+      <option value="SmallDielselVan">Small Diesel Van</option>
+      <option value="MediumDielselVan">Medium Diesel Van</option>
+      <option value="LargeDielselVan">Large Diesel Van</option>
+      <option value="LPGVan">LPG Van</option>
+      <option value="CNGVan">CNG Van</option>
+      <option value="SmallPetrolCar">Small Petrol Car</option>
+      <option value="MediumPetrolCar">Medium Petrol Car</option>
+      <option value="LargePetrolCar">Large Petrol Car</option>
+      <option value="SmallMotorBike">Small Motorbike</option>
+      <option value="MediumMotorBike">Medium Motorbike</option>
+      <option value="LargeMotorBike">Large Motorbike</option>
+    </select><br>
+    
+    <button type="submit">Calculate Carbon Footprint</button>
+  </form>
+  
+  <% if (carbonFootprintData) { %>
+    <h2>Carbon Footprint Data:</h2>
+    <p><%= carbonFootprintData.carbonEquivalent %></p>
+  <% } %>
+</body>
+</html>
+

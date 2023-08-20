@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculate Flight Carbon Footprint</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #23b9c4;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    label {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    select, input, button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: 2px solid #333;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    h2 {
+      margin-top: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    /* Media queries for responsive design */
+    @media screen and (max-width: 600px) {
+      .container {
+        padding: 1rem;
+      }
+      select, input, button {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Calculate Flight Carbon Footprint</h1>
+  </header>
+  
+  <div class="container">
+    <form action="/calculate-flight-carbon" method="POST">
+      <label for="distance">Distance (km): </label>
+      <input type="text" name="distance" required><br>
+      
+      <label for="flightType">Flight Type: </label>
+      <select name="flightType" required>
+        <option value="DomesticFlight">Domestic Flight</option>
+        <option value="ShortEconomyClassFlight">Short Economy Class Flight</option>
+        <option value="ShortBusinessClassFlight">Short Business Class Flight</option>
+        <option value="LongEconomyClassFlight">Long Economy Class Flight</option>
+        <option value="LongPremiumClassFlight">Long Premium Class Flight</option>
+        <option value="LongBusinessClassFlight">Long Business Class Flight</option>
+        <option value="LongFirstClassFlight">Long First Class Flight</option>
+        <!-- Add other options here -->
+      </select><br>
+      
+      <button type="submit">Calculate Flight Carbon Footprint</button>
+    </form>
+    
+    <% if (flightCarbonData) { %>
+      <h2>Flight Carbon Footprint Data:</h2>
+      <p><%= flightCarbonData.carbonEquivalent %></p>
+    <% } %>
+  </div>
+</body>
+</html>
