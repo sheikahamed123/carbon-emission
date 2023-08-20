@@ -28,5 +28,8 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-local-mongoose": "^8.0.0",
     "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "webpack": "^5.88.2"
   }
 }
