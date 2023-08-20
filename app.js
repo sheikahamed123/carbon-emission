@@ -7,8 +7,7 @@ const session=require('express-session')
 const passport=require('passport')
 const passportLocalMongoose=require("passport-local-mongoose")
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const { Configuration, OpenAIApi } = require("openai");
-const readlineSync = require("readline-sync");
+
 
 const app = express();
 
