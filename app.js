@@ -31,7 +31,7 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
-mongoose.connect("mongodb://127.0.0.1:27017/carbonuserDB");
+mongoose.connect( "mongodb+srv://sheikahamed134:sheikahamed@cluster0.oxaftjj.mongodb.net/carbonDB?retryWrites=true&w=majority");
 
 const userSchema= new mongoose.Schema({
   email:String,
