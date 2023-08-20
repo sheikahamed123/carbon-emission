@@ -183,7 +183,7 @@ function(accessToken, refreshToken, profile, cb) {
 ));
 
 app.get("/",function(req,res){
-    res.render("home.html");
+    res.render("./public/home.html");
 })
 app.get("/auth/google",
   passport.authenticate("google", {scope:['profile']})
